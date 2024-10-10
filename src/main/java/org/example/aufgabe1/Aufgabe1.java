@@ -22,7 +22,10 @@ public class Aufgabe1 {
 
             List<Token> tokenList = tokens.getTokens();
             for (Token token : tokenList) {
-                System.out.println("Token: " + token.getText() + " Type: " + lexer.getTokenNames()[token.getType()]);
+                if (token.getChannel() == Token.HIDDEN_CHANNEL) {
+                    continue;
+                }
+                System.out.println("Token: " + token.getText() + " Type: " + lexer.getVocabulary().getSymbolicName(token.getType()));
             }
         } catch (IOException e) {
             e.printStackTrace();
