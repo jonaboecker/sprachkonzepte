@@ -4,7 +4,7 @@ lexer grammar AbfahrtLexer;
 package org.example.aufgabe1;
 }
 
-TIME: ([01][0-9]|[2][0-9])':'[0-5][0-9];
+TIME: ([01][0-9]|[2][0-3])':'[0-5][0-9];
 VEHICLE: 'Bus' | 'RE' | 'KAT';
 VEHICLENUMBER: [0-9]+;
 TO: 'nach';
