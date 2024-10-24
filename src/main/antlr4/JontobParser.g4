@@ -13,7 +13,11 @@ start
     ;
 
 line
-    : assign | expr | IF LPAREN comp RPAREN LBRACE (line)+ RBRACE
+    : assign | expr | if
+    ;
+
+if
+    : IF LPAREN comp RPAREN LBRACE (line)+ RBRACE
     ;
 
 comp
