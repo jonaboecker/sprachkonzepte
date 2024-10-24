@@ -9,11 +9,11 @@ import org.example.aufgabe2.JontobLexer;
 options { tokenVocab=JontobLexer; }
 
 start
-    : line SEMICOLON (start | EOF)
+    : (line SEMICOLON)* EOF
     ;
 
 line
-    : expr | assign | IF LPAREN comp RPAREN LBRACE (line)+ RBRACE
+    : assign | expr | IF LPAREN comp RPAREN LBRACE (line)+ RBRACE
     ;
 
 comp

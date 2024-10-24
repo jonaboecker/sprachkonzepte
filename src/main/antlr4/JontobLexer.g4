@@ -35,4 +35,4 @@ VAR: 'var'[a-zA-Z0-9]+;
 
 WS: [ \t\r\n]+ -> channel(HIDDEN);
 
-InvalidChar: . ;
+//InvalidChar: . ;
