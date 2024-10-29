@@ -245,6 +245,10 @@ public class JontobParser extends Parser {
 		public LineContext line(int i) {
 			return getRuleContext(LineContext.class,i);
 		}
+		public List<TerminalNode> SEMICOLON() { return getTokens(JontobParser.SEMICOLON); }
+		public TerminalNode SEMICOLON(int i) {
+			return getToken(JontobParser.SEMICOLON, i);
+		}
 		public IfContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -276,7 +280,7 @@ public class JontobParser extends Parser {
 			match(RPAREN);
 			setState(33);
 			match(LBRACE);
-			setState(35); 
+			setState(37); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
@@ -284,13 +288,15 @@ public class JontobParser extends Parser {
 				{
 				setState(34);
 				line();
+				setState(35);
+				match(SEMICOLON);
 				}
 				}
-				setState(37); 
+				setState(39); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 459264L) != 0) );
-			setState(39);
+			setState(41);
 			match(RBRACE);
 			}
 		}
@@ -338,9 +344,9 @@ public class JontobParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(41);
+			setState(43);
 			value();
-			setState(42);
+			setState(44);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 480L) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -350,7 +356,7 @@ public class JontobParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(43);
+			setState(45);
 			value();
 			}
 		}
@@ -394,20 +400,20 @@ public class JontobParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(45);
+			setState(47);
 			match(VAR);
-			setState(48);
+			setState(50);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				{
-				setState(46);
+				setState(48);
 				value();
 				}
 				break;
 			case 2:
 				{
-				setState(47);
+				setState(49);
 				expr();
 				}
 				break;
@@ -458,9 +464,9 @@ public class JontobParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(50);
+			setState(52);
 			value();
-			setState(51);
+			setState(53);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 30L) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -470,7 +476,7 @@ public class JontobParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(52);
+			setState(54);
 			value();
 			}
 		}
@@ -511,7 +517,7 @@ public class JontobParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(54);
+			setState(56);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 458752L) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -535,41 +541,42 @@ public class JontobParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u00149\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\u0014;\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0001\u0000\u0001\u0000\u0001"+
 		"\u0000\u0005\u0000\u0012\b\u0000\n\u0000\f\u0000\u0015\t\u0000\u0001\u0000"+
 		"\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0003\u0001\u001c\b\u0001"+
 		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
-		"\u0004\u0002$\b\u0002\u000b\u0002\f\u0002%\u0001\u0002\u0001\u0002\u0001"+
-		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0004\u0001\u0004\u0001"+
-		"\u0004\u0003\u00041\b\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0001"+
-		"\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0000\u0000\u0007\u0000\u0002"+
-		"\u0004\u0006\b\n\f\u0000\u0003\u0001\u0000\u0005\b\u0001\u0000\u0001\u0004"+
-		"\u0001\u0000\u0010\u00126\u0000\u0013\u0001\u0000\u0000\u0000\u0002\u001b"+
-		"\u0001\u0000\u0000\u0000\u0004\u001d\u0001\u0000\u0000\u0000\u0006)\u0001"+
-		"\u0000\u0000\u0000\b-\u0001\u0000\u0000\u0000\n2\u0001\u0000\u0000\u0000"+
-		"\f6\u0001\u0000\u0000\u0000\u000e\u000f\u0003\u0002\u0001\u0000\u000f"+
-		"\u0010\u0005\u000f\u0000\u0000\u0010\u0012\u0001\u0000\u0000\u0000\u0011"+
-		"\u000e\u0001\u0000\u0000\u0000\u0012\u0015\u0001\u0000\u0000\u0000\u0013"+
-		"\u0011\u0001\u0000\u0000\u0000\u0013\u0014\u0001\u0000\u0000\u0000\u0014"+
-		"\u0016\u0001\u0000\u0000\u0000\u0015\u0013\u0001\u0000\u0000\u0000\u0016"+
-		"\u0017\u0005\u0000\u0000\u0001\u0017\u0001\u0001\u0000\u0000\u0000\u0018"+
-		"\u001c\u0003\b\u0004\u0000\u0019\u001c\u0003\n\u0005\u0000\u001a\u001c"+
-		"\u0003\u0004\u0002\u0000\u001b\u0018\u0001\u0000\u0000\u0000\u001b\u0019"+
-		"\u0001\u0000\u0000\u0000\u001b\u001a\u0001\u0000\u0000\u0000\u001c\u0003"+
-		"\u0001\u0000\u0000\u0000\u001d\u001e\u0005\t\u0000\u0000\u001e\u001f\u0005"+
-		"\n\u0000\u0000\u001f \u0003\u0006\u0003\u0000 !\u0005\u000b\u0000\u0000"+
-		"!#\u0005\f\u0000\u0000\"$\u0003\u0002\u0001\u0000#\"\u0001\u0000\u0000"+
-		"\u0000$%\u0001\u0000\u0000\u0000%#\u0001\u0000\u0000\u0000%&\u0001\u0000"+
-		"\u0000\u0000&\'\u0001\u0000\u0000\u0000\'(\u0005\r\u0000\u0000(\u0005"+
-		"\u0001\u0000\u0000\u0000)*\u0003\f\u0006\u0000*+\u0007\u0000\u0000\u0000"+
-		"+,\u0003\f\u0006\u0000,\u0007\u0001\u0000\u0000\u0000-0\u0005\u0012\u0000"+
-		"\u0000.1\u0003\f\u0006\u0000/1\u0003\n\u0005\u00000.\u0001\u0000\u0000"+
-		"\u00000/\u0001\u0000\u0000\u00001\t\u0001\u0000\u0000\u000023\u0003\f"+
-		"\u0006\u000034\u0007\u0001\u0000\u000045\u0003\f\u0006\u00005\u000b\u0001"+
-		"\u0000\u0000\u000067\u0007\u0002\u0000\u00007\r\u0001\u0000\u0000\u0000"+
-		"\u0004\u0013\u001b%0";
+		"\u0001\u0002\u0001\u0002\u0004\u0002&\b\u0002\u000b\u0002\f\u0002\'\u0001"+
+		"\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001"+
+		"\u0004\u0001\u0004\u0001\u0004\u0003\u00043\b\u0004\u0001\u0005\u0001"+
+		"\u0005\u0001\u0005\u0001\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0000"+
+		"\u0000\u0007\u0000\u0002\u0004\u0006\b\n\f\u0000\u0003\u0001\u0000\u0005"+
+		"\b\u0001\u0000\u0001\u0004\u0001\u0000\u0010\u00128\u0000\u0013\u0001"+
+		"\u0000\u0000\u0000\u0002\u001b\u0001\u0000\u0000\u0000\u0004\u001d\u0001"+
+		"\u0000\u0000\u0000\u0006+\u0001\u0000\u0000\u0000\b/\u0001\u0000\u0000"+
+		"\u0000\n4\u0001\u0000\u0000\u0000\f8\u0001\u0000\u0000\u0000\u000e\u000f"+
+		"\u0003\u0002\u0001\u0000\u000f\u0010\u0005\u000f\u0000\u0000\u0010\u0012"+
+		"\u0001\u0000\u0000\u0000\u0011\u000e\u0001\u0000\u0000\u0000\u0012\u0015"+
+		"\u0001\u0000\u0000\u0000\u0013\u0011\u0001\u0000\u0000\u0000\u0013\u0014"+
+		"\u0001\u0000\u0000\u0000\u0014\u0016\u0001\u0000\u0000\u0000\u0015\u0013"+
+		"\u0001\u0000\u0000\u0000\u0016\u0017\u0005\u0000\u0000\u0001\u0017\u0001"+
+		"\u0001\u0000\u0000\u0000\u0018\u001c\u0003\b\u0004\u0000\u0019\u001c\u0003"+
+		"\n\u0005\u0000\u001a\u001c\u0003\u0004\u0002\u0000\u001b\u0018\u0001\u0000"+
+		"\u0000\u0000\u001b\u0019\u0001\u0000\u0000\u0000\u001b\u001a\u0001\u0000"+
+		"\u0000\u0000\u001c\u0003\u0001\u0000\u0000\u0000\u001d\u001e\u0005\t\u0000"+
+		"\u0000\u001e\u001f\u0005\n\u0000\u0000\u001f \u0003\u0006\u0003\u0000"+
+		" !\u0005\u000b\u0000\u0000!%\u0005\f\u0000\u0000\"#\u0003\u0002\u0001"+
+		"\u0000#$\u0005\u000f\u0000\u0000$&\u0001\u0000\u0000\u0000%\"\u0001\u0000"+
+		"\u0000\u0000&\'\u0001\u0000\u0000\u0000\'%\u0001\u0000\u0000\u0000\'("+
+		"\u0001\u0000\u0000\u0000()\u0001\u0000\u0000\u0000)*\u0005\r\u0000\u0000"+
+		"*\u0005\u0001\u0000\u0000\u0000+,\u0003\f\u0006\u0000,-\u0007\u0000\u0000"+
+		"\u0000-.\u0003\f\u0006\u0000.\u0007\u0001\u0000\u0000\u0000/2\u0005\u0012"+
+		"\u0000\u000003\u0003\f\u0006\u000013\u0003\n\u0005\u000020\u0001\u0000"+
+		"\u0000\u000021\u0001\u0000\u0000\u00003\t\u0001\u0000\u0000\u000045\u0003"+
+		"\f\u0006\u000056\u0007\u0001\u0000\u000067\u0003\f\u0006\u00007\u000b"+
+		"\u0001\u0000\u0000\u000089\u0007\u0002\u0000\u00009\r\u0001\u0000\u0000"+
+		"\u0000\u0004\u0013\u001b\'2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

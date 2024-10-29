@@ -17,7 +17,7 @@ line
     ;
 
 if
-    : IF LPAREN comp RPAREN LBRACE (line)+ RBRACE
+    : IF LPAREN comp RPAREN LBRACE (line SEMICOLON)+ RBRACE
     ;
 
 comp

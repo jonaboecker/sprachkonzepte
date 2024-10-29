@@ -50,12 +50,12 @@ public final class ASTBuilder extends JontobParserBaseListener {
 
     @Override
     public void exitIf(JontobParser.IfContext ctx) {
-        ASTNode stm = this.stack.pop();
         List<ASTNode> lines = new ArrayList<>();
         int statements = (ctx.getChildCount() - 6) / 2;
         for (int i = 0; i < statements; i++) {
             lines.add(this.stack.pop());
         }
+        ASTNode stm = this.stack.pop();
         this.stack.push(new IfStatement(stm, lines));
     }
 
@@ -66,6 +66,6 @@ public final class ASTBuilder extends JontobParserBaseListener {
         for (int i = 0; i < statements; i++) {
             lines.add(this.stack.pop());
         }
-        this.stack.push(new Start(lines));
+        this.stack.push(new Start(lines.reversed()));
     }
 }
