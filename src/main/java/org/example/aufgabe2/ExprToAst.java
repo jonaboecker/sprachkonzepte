@@ -16,7 +16,7 @@ public final class ExprToAst {
     private ExprToAst() { }
 
     public static void main(String[] args) throws Exception {
-        InputStream targetStream = new FileInputStream("src/main/java/org/example/aufgabe2/bsp1.txt");
+        InputStream targetStream = new FileInputStream("src/main/java/org/example/aufgabe2/bsp2.txt");
         JontobLexer lexer = new JontobLexer(CharStreams.fromStream(targetStream));
         JontobParser parser = new JontobParser(new CommonTokenStream(lexer));
         ParseTree tree = parser.start();

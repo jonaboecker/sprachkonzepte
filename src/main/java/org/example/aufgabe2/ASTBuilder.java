@@ -56,7 +56,7 @@ public final class ASTBuilder extends JontobParserBaseListener {
             lines.add(this.stack.pop());
         }
         ASTNode stm = this.stack.pop();
-        this.stack.push(new IfStatement(stm, lines));
+        this.stack.push(new IfStatement(stm, lines.reversed()));
     }
 
     @Override

@@ -1,0 +1,1 @@
+if ( varFoo1 ! varFoo2 ) { varNo3 varNo1 - varNo2; varNo4 varNo3 / int4;};

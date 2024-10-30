@@ -4,7 +4,3 @@ varFoo1 string"FOO1";
 varFoo2 string"FOO2";
 
 if ( varFoo1 ! varFoo2 ) { varNo3 varNo1 + varNo2; };
-
-varNo4 varNo3 / int4;
-
-varFoo1 string"FOO1";
