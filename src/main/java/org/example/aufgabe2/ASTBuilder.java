@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
@@ -14,6 +15,18 @@ import org.example.aufgabe2.JontobParser;
 public final class ASTBuilder extends JontobParserBaseListener {
     private final Stack<ASTNode> stack = new Stack<ASTNode>();
 
+    private int numberOfSemanticErrors;
+
+    private void semanticError(Token t, String error) {
+        this.numberOfSemanticErrors++;
+        System.err.printf("line %d column %d: %s%n",
+                t.getLine(), t.getCharPositionInLine(), error);
+    }
+
+    public int getNumberOfSemanticErrors() {
+        return this.numberOfSemanticErrors;
+    }
+
     public ASTNode build(ParseTree tree) {
         new ParseTreeWalker().walk(this, tree);
         return this.stack.pop();
@@ -21,8 +34,22 @@ public final class ASTBuilder extends JontobParserBaseListener {
 
     @Override
     public void exitValue(JontobParser.ValueContext ctx) {
-        String s = ctx.getChild(0).getText();
-        this.stack.push(new Value(s));
+        Value v = new Value(ctx.getChild(0).getText());
+        this.stack.push(v);
+        switch  (v.type) {
+            case "int":
+                try {
+                    Integer.parseInt(v.value);
+                } catch (NumberFormatException e) {
+                    semanticError(ctx.INT().getSymbol(), "Invalid integer value");
+                }
+                break;
+            case "var":
+                if (v.value.length() > 20) {
+                    semanticError(ctx.VAR().getSymbol(), "Variable name is too long");
+                }
+                break;
+        }
     }
 
     @Override
@@ -30,7 +57,15 @@ public final class ASTBuilder extends JontobParserBaseListener {
         ASTNode right = this.stack.pop();
         ASTNode left = this.stack.pop();
         String op = ctx.getChild(1).getText();
-        this.stack.push(new Expression(left, op, right));
+        Expression exp = new Expression(left, op, right);
+        this.stack.push(exp);
+        if (op.equals("-") && (((Value)left).type.equals("string")) || ((Value)right).type.equals("string")) {
+            semanticError(ctx.SUB().getSymbol(), "Strings cant be subtracted");
+        } else if (op.equals("*") && (((Value)left).type.equals("string") || ((Value)right).type.equals("string"))) {
+            semanticError(ctx.MUL().getSymbol(), "Strings cant be multiplied");
+        } else if (op.equals("/") && (((Value)left).type.equals("string") || ((Value)right).type.equals("string"))) {
+            semanticError(ctx.DIV().getSymbol(), "Strings cant be divided");
+        }
     }
 
     @Override

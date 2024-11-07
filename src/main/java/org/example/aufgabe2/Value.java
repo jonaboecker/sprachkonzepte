@@ -16,16 +16,6 @@ public class Value extends ASTNode {
             this.type = "var";
         }
         this.value = value.split("int|string|var")[1];
-        switch  (this.type) {
-            case "int":
-                var foo = Integer.parseInt(this.value);
-                break;
-            case "var":
-                if (this.value.length() > 20) {
-                    throw new IllegalArgumentException("Variable name is too long");
-                }
-                break;
-        }
     }
 
     public String toString() {
