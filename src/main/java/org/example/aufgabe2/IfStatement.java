@@ -14,4 +14,9 @@ public class IfStatement extends ASTNode {
     public String toString() {
         return "if ( " + condition + " ){ " + thenLines + " }";
     }
+
+    @Override
+    public void accept(ExprVisitor visitor) {
+        visitor.visitIfStatement(this);
+    }
 }

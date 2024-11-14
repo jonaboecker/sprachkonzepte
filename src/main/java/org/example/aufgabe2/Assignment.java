@@ -12,4 +12,9 @@ public class Assignment extends ASTNode {
     public String toString() {
         return variable + " " + valueOrExpression;
     }
+
+    @Override
+    public void accept(ExprVisitor visitor) {
+        visitor.visitAssignment(this);
+    }
 }

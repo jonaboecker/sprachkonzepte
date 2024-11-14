@@ -13,4 +13,9 @@ public class Start extends ASTNode {
     public String toString() {
         return lines.toString();
     }
+
+    @Override
+    public void accept(ExprVisitor visitor) {
+        visitor.visitStart(this);
+    }
 }

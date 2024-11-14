@@ -16,4 +16,9 @@ public class Expression extends ASTNode {
     public String toString() {
         return "(" + left + " " + operator + " " + right + ")";
     }
+
+    @Override
+    public void accept(ExprVisitor visitor) {
+        visitor.visitExpression(this);
+    }
 }

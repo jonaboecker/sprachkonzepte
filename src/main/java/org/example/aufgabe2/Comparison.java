@@ -14,4 +14,9 @@ public class Comparison extends ASTNode {
     public String toString() {
         return "(" + left + " " + operator + " " + right + ")";
     }
+
+    @Override
+    public void accept(ExprVisitor visitor) {
+        visitor.visitComparison(this);
+    }
 }

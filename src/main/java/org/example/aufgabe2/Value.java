@@ -21,4 +21,9 @@ public class Value extends ASTNode {
     public String toString() {
         return type + value;
     }
+
+    @Override
+    public void accept(ExprVisitor visitor) {
+        visitor.visitValue(this);
+    }
 }

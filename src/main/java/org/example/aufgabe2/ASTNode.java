@@ -1,3 +1,5 @@
 package org.example.aufgabe2;
 
-abstract class ASTNode {}
+abstract class ASTNode {
+    public abstract void accept(ExprVisitor visitor);
+}
