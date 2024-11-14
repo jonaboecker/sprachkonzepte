@@ -80,7 +80,13 @@ public final class ASTBuilder extends JontobParserBaseListener {
         ASTNode right = this.stack.pop();
         ASTNode left = this.stack.pop();
         String op = ctx.getChild(1).getText();
-        this.stack.push(new Comparison(left, op, right));
+        Comparison comp = new Comparison(left, op, right);
+        this.stack.push(comp);
+        if ((op.equals(">")) && (((Value)left).type.equals("string") || ((Value)right).type.equals("string"))) {
+            semanticError(ctx.GT().getSymbol() , "Strings cant be compared");
+        } else if ((op.equals("<")) && (((Value)left).type.equals("string") || ((Value)right).type.equals("string"))) {
+            semanticError(ctx.LT().getSymbol(), "Strings cant be compared");
+        }
     }
 
     @Override
