@@ -1,7 +1,11 @@
 package org.example.aufgabe2;
 
+import java.util.Hashtable;
+
 public final class Interpreter implements ExprVisitor {
     private String result;
+
+    private Hashtable<String, String> variables = new Hashtable<>();
 
     public String interpret(ASTNode node) {
         node.accept(this);
@@ -10,15 +14,13 @@ public final class Interpreter implements ExprVisitor {
 
     @Override
     public void visitExpression(Expression expression) {
-        expression.left.accept(this);
-        String left = result;
-        expression.right.accept(this);
-        String right = result;
-        if (((Value) expression.left).type.equals("string") || ((Value) expression.right).type.equals("string")) {
-            result = left + right;
+        Value left = getRealValue((Value) expression.left);
+        Value right = getRealValue((Value) expression.right);
+        if (left.type.equals("string") || right.type.equals("string")) {
+            result = left.value + right.value;
         } else {
-            int leftInt = Integer.parseInt(left);
-            int rightInt = Integer.parseInt(right);
+            int leftInt = Integer.parseInt(left.value);
+            int rightInt = Integer.parseInt(right.value);
             switch (expression.operator) {
                 case "+":
                     result = Integer.toString(leftInt + rightInt);
@@ -46,35 +48,36 @@ public final class Interpreter implements ExprVisitor {
     @Override
     public void visitAssignment(Assignment assignment) {
         assignment.valueOrExpression.accept(this);
+        variables.put(new Value (assignment.variable).value, result);
         result = assignment.variable + " = " + result;
     }
 
     @Override
     public void visitComparison(Comparison comparison) {
-        comparison.left.accept(this);
-        String left = result;
-        comparison.right.accept(this);
-        String right = result;
-        if (((Value) comparison.left).type.equals("string") || ((Value) comparison.right).type.equals("string")) {
+
+        Value left = getRealValue((Value) comparison.left);
+        Value right = getRealValue((Value) comparison.right);
+
+        if (left.type.equals("string") || right.type.equals("string")) {
             switch (comparison.operator) {
-                case "==":
+                case "=":
                     result = Boolean.toString(left.equals(right));
                     break;
-                case "!=":
+                case "!":
                     result = Boolean.toString(!left.equals(right));
                     break;
                 default:
                     throw new IllegalArgumentException("Unknown operator: " + comparison.operator);
             }
         } else {
-            int leftInt = Integer.parseInt(left);
-            int rightInt = Integer.parseInt(right);
+            int leftInt = Integer.parseInt(left.value);
+            int rightInt = Integer.parseInt(right.value);
 
             switch (comparison.operator) {
-                case "==":
+                case "=":
                     result = Boolean.toString(leftInt == rightInt);
                     break;
-                case "!=":
+                case "!":
                     result = Boolean.toString(leftInt != rightInt);
                     break;
                 case "<":
@@ -93,7 +96,9 @@ public final class Interpreter implements ExprVisitor {
     public void visitIfStatement(IfStatement ifStatement) {
         ifStatement.condition.accept(this);
         if (Boolean.parseBoolean(result)) {
-            ifStatement.accept(this);
+            for (ASTNode node : ifStatement.thenLines) {
+                node.accept(this);
+            }
         }
     }
 
@@ -105,5 +110,18 @@ public final class Interpreter implements ExprVisitor {
             tempResult.append(result).append("\n");
         }
         result = tempResult.toString();
+    }
+
+    private Value getRealValue(Value value) {
+        var temp = variables.get(value.value);
+        if (temp == null) {
+            return value;
+        } else {
+            try {
+                return new Value("int" + Integer.parseInt(temp));
+            } catch (NumberFormatException e) {
+                return new Value("string" + temp);
+            }
+        }
     }
 }
