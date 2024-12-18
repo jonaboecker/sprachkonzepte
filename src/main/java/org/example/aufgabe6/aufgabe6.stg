@@ -1,5 +1,7 @@
 group aufgabe6;
 
+delimiters "$", "$"
+
 root(classes) ::= <<
 <!DOCTYPE html>
 <html lang="de">
@@ -11,32 +13,28 @@ root(classes) ::= <<
 </head>
 <body>
 <h1>Sprachkonzepte, Aufgabe 6</h1>
-<% for class in classes: %>
-<h2><% if(class.interface): %>interface<% else: %>class<% endif %> <%= class.name %>:</h2>
+$classes:{class |
+<h2>$if(class.interface)$interface$else$class$endif$ $class.name$:</h2>
 <table>
-    <% if(class.interface): %>
+    $if(class.interface)$
     <tr><th>Methods</th></tr>
     <tr><td>
-        <% for method in class.methods: %>
-            <%= method %><br>
-        <% end %>
+        $class.methods:{method | $method$<br>}$
     </td></tr>
-    <% else: %>
+    $else$
     <tr><th>Interface</th><th>Methods</th></tr>
-    <% for interface in class.interfaces: %>
+    $class.interfaces:{interface |
     <tr>
-        <td valign="top"><%= interface.name %></td>
+        <td valign="top">$interface.name$</td>
         <td>
-            <% for method in interface.methods: %>
-                <%= method %><br>
-            <% end %>
+            $interface.methods:{method | $method$<br>}$
         </td>
     </tr>
-    <% end %>
-    <% end %>
+    }$
+    $endif$
 </table>
 <br>
-<% end %>
+}$
 </body>
 </html>
 >>
